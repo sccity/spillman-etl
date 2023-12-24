@@ -1,12 +1,11 @@
 """SPILLMAN."""
 # **********************************************************
 # * CATEGORY  SOFTWARE
-# * GROUP     DISPATCH
+# * GROUP     DISPATCH/WAREHOUSING
 # * AUTHOR    LANCE HAYNIE <LHAYNIE@SCCITY.ORG>
 # **********************************************************
-# Spillman ETL
+# Spillman-ETL
 # Copyright Santa Clara City
-# Developed for Santa Clara - Ivins Fire & Rescue
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.#
 # You may obtain a copy of the License at

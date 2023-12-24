@@ -1,12 +1,10 @@
 # **********************************************************
-# * CATEGORY	SOFTWARE
-# * GROUP	DISPATCH
-# * AUTHOR	LANCE HAYNIE <LHAYNIE@SCCITY.ORG>
-# * FILE		DATABASE.PY
+# * CATEGORY  SOFTWARE
+# * GROUP     DISPATCH/WAREHOUSING
+# * AUTHOR    LANCE HAYNIE <LHAYNIE@SCCITY.ORG>
 # **********************************************************
-# Active 911 to Spillman Connector
+# Spillman-ETL
 # Copyright Santa Clara City
-# Developed for Santa Clara - Ivins Fire & Rescue
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.#
 # You may obtain a copy of the License at
