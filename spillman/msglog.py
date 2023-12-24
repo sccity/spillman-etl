@@ -48,8 +48,17 @@ session.auth = (api_usr, api_pwd)
 def extract(date):
     date_time = datetime.datetime.strptime(date, "%Y-%m-%d")
     start_date = date_time - datetime.timedelta(seconds=1)
-    end_date = date_time + datetime.timedelta(days=1)
+    start_date = str(start_date.strftime("%m/%d/%Y"))
+    end_date = date_time + datetime.timedelta(days=0)
+    end_date = str(end_date.strftime("%m/%d/%Y"))
 
+    process(f"{start_date} 23:59:59", f"{end_date} 06:00:00")
+    process(f"{end_date} 05:59:59", f"{end_date} 12:00:00")
+    process(f"{end_date} 11:59:59", f"{end_date} 18:00:00")
+    process(f"{end_date} 18:59:59", f"{end_date} 23:59:59")
+
+
+def process(start_date, end_date):
     logging.info(f"Processing Message Logs from {start_date} to {end_date}")
 
     try:
