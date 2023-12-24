@@ -1,0 +1,13 @@
+global:
+    loglevel: "INFO"
+    nwsid: "UTC053"
+databases:
+    warehouse:
+        schema: ""
+        user: ""
+        password: ""
+        host: ""
+spillman:
+    url: ""
+    user: ""
+    password: ""
