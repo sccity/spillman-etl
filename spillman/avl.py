@@ -46,7 +46,7 @@ def extract(date):
     date_time = datetime.datetime.strptime(date, "%Y-%m-%d")
     start_date = date_time - datetime.timedelta(seconds=1)
     start_date = str(start_date.strftime("%m/%d/%Y"))
-    end_date = date_time + datetime.timedelta(days=1)
+    end_date = date_time + datetime.timedelta(days=0)
     end_date = str(end_date.strftime("%m/%d/%Y"))
 
     process(f"{start_date} 23:59:59", f"{end_date} 06:00:00")
