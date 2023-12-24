@@ -62,6 +62,7 @@ for single_date in daterange(start_date, end_date):
     p5 = Process(s.rlog.extract(process_date))
     p6 = Process(s.citation.extract(process_date))
     p7 = Process(s.msglog.extract(process_date))
+    p8 = Process(s.avl.extract(process_date))
 
     p1.start()
     p2.start()
@@ -70,6 +71,7 @@ for single_date in daterange(start_date, end_date):
     p5.start()
     p6.start()
     p7.start()
+    p8.start()
 
     p1.join()
     p2.join()
@@ -78,5 +80,6 @@ for single_date in daterange(start_date, end_date):
     p5.join()
     p6.join()
     p7.join()
+    p8.join()
 db.close()
 exit(0)
