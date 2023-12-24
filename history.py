@@ -49,7 +49,7 @@ def daterange(start_date, end_date):
 
 
 start_date = date(2010, 1, 1)
-end_date = date(2023, 12, 22)
+end_date = date(2023, 12, 23)
 
 for single_date in daterange(start_date, end_date):
     process_date = single_date.strftime("%Y-%m-%d")
