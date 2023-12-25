@@ -18,24 +18,32 @@ import pymysql
 from sqlalchemy import create_engine
 from .settings import settings_data
 
-db_info = {}
-db_info["user"] = settings_data["databases"]["warehouse"]["user"]
-db_info["password"] = settings_data["databases"]["warehouse"]["password"]
-db_info["host"] = settings_data["databases"]["warehouse"]["host"]
-db_info["schema"] = settings_data["databases"]["warehouse"]["schema"]
+def connect():
+    return pymysql.connect(
+        host=settings_data["databases"]["warehouse"]["host"],
+        user=settings_data["databases"]["warehouse"]["user"],
+        password=settings_data["databases"]["warehouse"]["password"],
+        database=settings_data["databases"]["warehouse"]["schema"],
+    )
 
-db = pymysql.connect(
-    host=db_info["host"],
-    user=db_info["user"],
-    password=db_info["password"],
-    database=db_info["schema"],
-)
 
-db_engine = create_engine(
-    f"mysql+pymysql://{db_info['user']}:{db_info['password']}@{db_info['host']}:3306/{db_info['schema']}",
-    connect_args={"connect_timeout": 300},
-)
+def connect_read():
+    return pymysql.connect(
+        host=settings_data["databases"]["warehouse"]["host_ro"],
+        user=settings_data["databases"]["warehouse"]["user"],
+        password=settings_data["databases"]["warehouse"]["password"],
+        database=settings_data["databases"]["warehouse"]["schema"],
+    )
 
+
+db = connect()
 cursor = db.cursor()
 cursor.execute("SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED")
 cursor.close()
+db.close()
+
+db_ro = connect_read()
+cursor = db_ro.cursor()
+cursor.execute("SET SESSION TRANSACTION ISOLATION LEVEL READ COMMITTED")
+cursor.close()
+db_ro.close()

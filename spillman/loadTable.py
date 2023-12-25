@@ -19,7 +19,7 @@ import traceback
 import logging
 import requests
 from .settings import settings_data
-from .database import db
+from .database import connect, connect_read
 
 requests.packages.urllib3.disable_warnings(
     requests.packages.urllib3.exceptions.InsecureRequestWarning
@@ -31,12 +31,17 @@ logging.basicConfig(
 
 
 def execute_sql(sql, values):
-    with db.cursor() as cursor:
-        try:
-            cursor.execute(sql, values)
-            db.commit()
-        except Exception as e:
-            handle_db_error(e, sql)
+    try:
+        db = connect()
+        cursor = db.cursor()
+        cursor.execute(sql, values)
+        db.commit()
+        cursor.close()
+        db.close()
+    except Exception as e:
+        cursor.close()
+        db.close()
+        handle_db_error(e, sql)
 
 
 def handle_db_error(exception, sql):
@@ -343,15 +348,25 @@ def load_geobase(
             longitude,
         )
         logging.debug(f"Processing geobase for ID: {geobase_id}")
+        db = connect()
+        cursor = db.cursor()
         cursor.execute(sql, values)
         db.commit()
+        cursor.close()
+        db.close()
 
     except Exception as e:
+        cursor.close()
+        db.close()
         error = format(str(e))
         if "Duplicate entry" in error:
             try:
                 sql = f"SELECT geobase_id, house_number, street_address, city_cd, zipcode, zone_law, zone_fire, zone_ems, latitude, longitude from geobase where geobase_id = '{geobase_id}';"
+                db_ro = connect_read()
+                cursor = db_ro.cursor()
                 cursor.execute(sql)
+                cursor.close()
+                db_ro.close()
                 geobase_results = cursor.fetchone()
 
                 (
@@ -369,91 +384,145 @@ def load_geobase(
 
                 if house_number != db_house_number:
                     try:
+                        db = connect()
+                        cursor = db.cursor()
                         cursor.execute(
                             f"update geobase set house_number = '{house_number}' where geobase_id = '{geobase_id}'"
                         )
                         db.commit()
+                        cursor.close()
+                        db.close()
                     except:
+                        cursor.close()
+                        db.close()
                         logging.error(traceback.format_exc())
                         return
 
                 if street_address != db_street_address:
                     try:
+                        db = connect()
+                        cursor = db.cursor()
                         cursor.execute(
                             f"update geobase set street_address = '{street_address}' where geobase_id = '{geobase_id}'"
                         )
                         db.commit()
+                        cursor.close()
+                        db.close()
                     except:
+                        cursor.close()
+                        db.close()
                         logging.error(traceback.format_exc())
                         return
 
                 if city_cd != db_city_cd:
                     try:
+                        db = connect()
+                        cursor = db.cursor()
                         cursor.execute(
                             f"update geobase set city_cd = '{city_cd}' where geobase_id = '{geobase_id}'"
                         )
                         db.commit()
+                        cursor.close()
+                        db.close()
                     except:
+                        cursor.close()
+                        db.close()
                         logging.error(traceback.format_exc())
                         return
 
                 if zipcode != db_zipcode:
                     try:
+                        db = connect()
+                        cursor = db.cursor()
                         cursor.execute(
                             f"update geobase set zipcode = '{zipcode}' where geobase_id = '{geobase_id}'"
                         )
                         db.commit()
+                        cursor.close()
+                        db.close()
                     except:
+                        cursor.close()
+                        db.close()
                         logging.error(traceback.format_exc())
                         return
 
                 if zone_law != db_zone_law:
                     try:
+                        db = connect()
+                        cursor = db.cursor()
                         cursor.execute(
                             f"update geobase set zone_law = '{zone_law}' where geobase_id = '{geobase_id}'"
                         )
                         db.commit()
+                        cursor.close()
+                        db.close()
                     except:
+                        cursor.close()
+                        db.close()
                         logging.error(traceback.format_exc())
                         return
 
                 if zone_fire != db_zone_fire:
                     try:
+                        db = connect()
+                        cursor = db.cursor()
                         cursor.execute(
                             f"update geobase set zone_fire = '{zone_fire}' where geobase_id = '{geobase_id}'"
                         )
                         db.commit()
+                        cursor.close()
+                        db.close()
                     except:
+                        cursor.close()
+                        db.close()
                         logging.error(traceback.format_exc())
                         return
 
                 if zone_ems != db_zone_ems:
                     try:
+                        db = connect()
+                        cursor = db.cursor()
                         cursor.execute(
                             f"update geobase set zone_ems = '{zone_ems}' where geobase_id = '{geobase_id}'"
                         )
                         db.commit()
+                        cursor.close()
+                        db.close()
                     except:
+                        cursor.close()
+                        db.close()
                         logging.error(traceback.format_exc())
                         return
 
                 if latitude != db_latitude:
                     try:
+                        db = connect()
+                        cursor = db.cursor()
                         cursor.execute(
                             f"update geobase set latitude = '{latitude}' where geobase_id = '{geobase_id}'"
                         )
                         db.commit()
+                        cursor.close()
+                        db.close()
                     except:
+                        cursor.close()
+                        db.close()
                         logging.error(traceback.format_exc())
                         return
 
                 if longitude != db_longitude:
                     try:
+                        db = connect()
+                        cursor = db.cursor()
                         cursor.execute(
                             f"update geobase set longitude = '{longitude}' where geobase_id = '{geobase_id}'"
                         )
                         db.commit()
+                        cursor.close()
+                        db.close()
                     except:
+                        cursor.close()
+                        db.close()
                         logging.error(traceback.format_exc())
                         return
 

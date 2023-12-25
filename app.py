@@ -19,7 +19,6 @@ import logging
 import os
 import psutil
 import spillman as s
-from multiprocessing import Process
 from datetime import date, timedelta
 from datetime import datetime
 from spillman.database import db
@@ -55,31 +54,13 @@ for single_date in daterange(start_date, end_date):
     process_date = single_date.strftime("%Y-%m-%d")
     logging.info(f"Running Spillman-ETL for {process_date}")
 
-    p1 = Process(target=s.cad.extract(process_date))
-    p2 = Process(target=s.fireincident.extract(process_date))
-    p3 = Process(target=s.emsincident.extract(process_date))
-    p4 = Process(target=s.lawincident.extract(process_date))
-    p5 = Process(s.rlog.extract(process_date))
-    p6 = Process(s.citation.extract(process_date))
-    p7 = Process(s.msglog.extract(process_date))
-    p8 = Process(s.avl.extract(process_date))
-
-    p1.start()
-    p2.start()
-    p3.start()
-    p4.start()
-    p5.start()
-    p6.start()
-    p7.start()
-    p8.start()
-
-    p1.join()
-    p2.join()
-    p3.join()
-    p4.join()
-    p5.join()
-    p6.join()
-    p7.join()
-    p8.join()
-db.close()
+    s.cad.extract(process_date)
+    s.fireincident.extract(process_date)
+    s.emsincident.extract(process_date)
+    s.lawincident.extract(process_date)
+    s.rlog.extract(process_date)
+    s.citation.extract(process_date)
+    s.msglog.extract(process_date)
+    s.avl.extract(process_date)
+    s.geobase.extract()
 exit(0)
