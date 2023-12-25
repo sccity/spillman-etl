@@ -26,3 +26,4 @@ from .sylog import *
 from .citation import *
 from .msglog import *
 from .avl import *
+from .geobase import *

@@ -310,3 +310,157 @@ def load_citation(
 
     except Exception as e:
         logging.error(traceback.print_exc())
+
+
+def load_geobase(
+    geobase_id,
+    house_number,
+    street_address,
+    city_cd,
+    zipcode,
+    zone_law,
+    zone_fire,
+    zone_ems,
+    latitude,
+    longitude,
+):
+    try:
+        cursor = db.cursor()
+        sql = """
+        INSERT INTO geobase (geobase_id, house_number, street_address, city_cd, zipcode, zone_law, zone_fire, zone_ems, latitude, longitude)
+        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
+        """
+        values = (
+            geobase_id,
+            house_number,
+            street_address,
+            city_cd,
+            zipcode,
+            zone_law,
+            zone_fire,
+            zone_ems,
+            latitude,
+            longitude,
+        )
+        logging.debug(f"Processing geobase for ID: {geobase_id}")
+        cursor.execute(sql, values)
+        db.commit()
+
+    except Exception as e:
+        error = format(str(e))
+        if "Duplicate entry" in error:
+            try:
+                sql = f"SELECT geobase_id, house_number, street_address, city_cd, zipcode, zone_law, zone_fire, zone_ems, latitude, longitude from geobase where geobase_id = '{geobase_id}';"
+                cursor.execute(sql)
+                geobase_results = cursor.fetchone()
+
+                (
+                    db_geobase_id,
+                    db_house_number,
+                    db_street_address,
+                    db_city_cd,
+                    db_zipcode,
+                    db_zone_law,
+                    db_zone_fire,
+                    db_zone_ems,
+                    db_latitude,
+                    db_longitude,
+                ) = geobase_results
+
+                if house_number != db_house_number:
+                    try:
+                        cursor.execute(
+                            f"update geobase set house_number = '{house_number}' where geobase_id = '{geobase_id}'"
+                        )
+                        db.commit()
+                    except:
+                        logging.error(traceback.format_exc())
+                        return
+
+                if street_address != db_street_address:
+                    try:
+                        cursor.execute(
+                            f"update geobase set street_address = '{street_address}' where geobase_id = '{geobase_id}'"
+                        )
+                        db.commit()
+                    except:
+                        logging.error(traceback.format_exc())
+                        return
+
+                if city_cd != db_city_cd:
+                    try:
+                        cursor.execute(
+                            f"update geobase set city_cd = '{city_cd}' where geobase_id = '{geobase_id}'"
+                        )
+                        db.commit()
+                    except:
+                        logging.error(traceback.format_exc())
+                        return
+
+                if zipcode != db_zipcode:
+                    try:
+                        cursor.execute(
+                            f"update geobase set zipcode = '{zipcode}' where geobase_id = '{geobase_id}'"
+                        )
+                        db.commit()
+                    except:
+                        logging.error(traceback.format_exc())
+                        return
+
+                if zone_law != db_zone_law:
+                    try:
+                        cursor.execute(
+                            f"update geobase set zone_law = '{zone_law}' where geobase_id = '{geobase_id}'"
+                        )
+                        db.commit()
+                    except:
+                        logging.error(traceback.format_exc())
+                        return
+
+                if zone_fire != db_zone_fire:
+                    try:
+                        cursor.execute(
+                            f"update geobase set zone_fire = '{zone_fire}' where geobase_id = '{geobase_id}'"
+                        )
+                        db.commit()
+                    except:
+                        logging.error(traceback.format_exc())
+                        return
+
+                if zone_ems != db_zone_ems:
+                    try:
+                        cursor.execute(
+                            f"update geobase set zone_ems = '{zone_ems}' where geobase_id = '{geobase_id}'"
+                        )
+                        db.commit()
+                    except:
+                        logging.error(traceback.format_exc())
+                        return
+
+                if latitude != db_latitude:
+                    try:
+                        cursor.execute(
+                            f"update geobase set latitude = '{latitude}' where geobase_id = '{geobase_id}'"
+                        )
+                        db.commit()
+                    except:
+                        logging.error(traceback.format_exc())
+                        return
+
+                if longitude != db_longitude:
+                    try:
+                        cursor.execute(
+                            f"update geobase set longitude = '{longitude}' where geobase_id = '{geobase_id}'"
+                        )
+                        db.commit()
+                    except:
+                        logging.error(traceback.format_exc())
+                        return
+
+            except Exception as update_error:
+                logging.error(f"Error updating geobase: {update_error}")
+                logging.error(traceback.format_exc())
+
+        else:
+            logging.error(f"Error inserting geobase: {error}")
+            logging.error(traceback.format_exc())
