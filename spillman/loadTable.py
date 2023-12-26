@@ -330,7 +330,6 @@ def load_geobase(
     longitude,
 ):
     try:
-        cursor = db.cursor()
         sql = """
         INSERT INTO geobase (geobase_id, house_number, street_address, city_cd, zipcode, zone_law, zone_fire, zone_ems, latitude, longitude)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
