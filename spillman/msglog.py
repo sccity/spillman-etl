@@ -25,7 +25,7 @@ import datetime
 import re
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
-from .loadTable import *
+from .loadtable import *
 from .settings import settings_data
 from .database import db
 

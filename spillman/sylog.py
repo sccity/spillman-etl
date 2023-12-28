@@ -23,7 +23,7 @@ import xmltodict
 import traceback
 import datetime
 import re
-from .loadTable import *
+from .loadtable import *
 from .settings import settings_data
 from .database import db
 

@@ -14,10 +14,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import sys
 import logging
 import os
-import psutil
+import click
 import spillman as s
 from datetime import date, timedelta
 from datetime import datetime
@@ -31,36 +30,49 @@ logging.basicConfig(
 )
 
 
-logging.info("   _____       _ _ _                             ______ _______ _      ")
-logging.info("  / ____|     (_) | |                           |  ____|__   __| |     ")
-logging.info(" | (___  _ __  _| | |_ __ ___   __ _ _ __ ______| |__     | |  | |     ")
-logging.info("  \___ \| '_ \| | | | '_ ` _ \ / _` | '_ \______|  __|    | |  | |     ")
-logging.info("  ____) | |_) | | | | | | | | | (_| | | | |     | |____   | |  | |____ ")
-logging.info(" |_____/| .__/|_|_|_|_| |_| |_|\__,_|_| |_|     |______|  |_|  |______|")
-logging.info("        | |                                                            ")
-logging.info("        |_|                                                            ")
+@click.group()
+def main():
+    """Spillman ETL"""
 
 
-start_date = datetime.today() - timedelta(days=1)
-end_date = datetime.today() - timedelta(days=0)
+@main.command()
+def daily():
+    """Daily ETL Processing"""
+    s.functions.header()
+    start_date = datetime.today() - timedelta(days=1)
+    end_date = datetime.today() - timedelta(days=0)
+
+    for single_date in s.functions.daterange(start_date, end_date):
+        process_date = single_date.strftime("%Y-%m-%d")
+        logging.info(f"Running Spillman-ETL for {process_date}")
+
+        s.cad.extract(process_date)
+        s.fireincident.extract(process_date)
+        s.emsincident.extract(process_date)
+        s.lawincident.extract(process_date)
+        s.rlog.extract(process_date)
+        s.citation.extract(process_date)
+        s.msglog.extract(process_date)
+        s.avl.extract(process_date)
+        s.geobase.extract()
 
 
-def daterange(start_date, end_date):
-    for n in range(int((end_date - start_date).days)):
-        yield start_date + timedelta(n)
+@main.command()
+def ddm():
+    """Daily DataMart Process"""
+    s.functions.header()
+    logging.info(f"Executing Daily DataMart Stored Procedures")
+    s.datamart.daily()
 
 
-for single_date in daterange(start_date, end_date):
-    process_date = single_date.strftime("%Y-%m-%d")
-    logging.info(f"Running Spillman-ETL for {process_date}")
+@main.command()
+@click.option("--agency", type=str, help="Specify the Agency ID")
+@click.option("--type", type=str, help="Specify the Agency Type (Law/Fire/EMS)")
+def createagency(agency, type):
+    """Create Agency Views in Warehouse"""
+    s.functions.header()
+    s.agencyview.create(agency, type)
 
-    s.cad.extract(process_date)
-    s.fireincident.extract(process_date)
-    s.emsincident.extract(process_date)
-    s.lawincident.extract(process_date)
-    s.rlog.extract(process_date)
-    s.citation.extract(process_date)
-    s.msglog.extract(process_date)
-    s.avl.extract(process_date)
-    s.geobase.extract()
-exit(0)
+
+if __name__ == "__main__":
+    main()

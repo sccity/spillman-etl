@@ -18,6 +18,7 @@ import pymysql
 from sqlalchemy import create_engine
 from .settings import settings_data
 
+
 def connect():
     return pymysql.connect(
         host=settings_data["databases"]["warehouse"]["host"],
