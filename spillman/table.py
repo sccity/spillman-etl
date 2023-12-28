@@ -75,14 +75,15 @@ def create_table(table_name, tabledata):
         cursor = db.cursor()
 
         cursor.execute(f"DROP TABLE IF EXISTS {table_name}_test;")
+        cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
         db.commit()
 
-        cursor.execute(f"CREATE TABLE {table_name}_test ({', '.join([f'`{key}` VARCHAR(255)' for key in keys])})")
+        cursor.execute(f"CREATE TABLE {table_name} ({', '.join([f'`{key}` VARCHAR(255)' for key in keys])})")
         db.commit()
 
         for row in tabledata:
             values = [row.get(key, None) for key in keys]
-            insert_query = f"INSERT INTO {table_name}_test ({', '.join(['`' + key + '`' for key in keys])}) VALUES ({', '.join(['%s' for _ in keys])})"
+            insert_query = f"INSERT INTO {table_name} ({', '.join(['`' + key + '`' for key in keys])}) VALUES ({', '.join(['%s' for _ in keys])})"
             cursor.execute(insert_query, tuple(values))
 
         db.commit()
