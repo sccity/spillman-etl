@@ -30,3 +30,4 @@ from .geobase import *
 from .datamart import *
 from .functions import *
 from .agencyview import *
+from .table import *
