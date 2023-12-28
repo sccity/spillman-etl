@@ -90,7 +90,7 @@ def ddm():
 
 
 @main.command()
-def geo():
+def geobase():
     """Update Geobase Table"""
     s.functions.header()
     s.geobase.extract()
