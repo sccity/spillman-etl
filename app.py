@@ -54,7 +54,31 @@ def daily():
         s.citation.extract(process_date)
         s.msglog.extract(process_date)
         s.avl.extract(process_date)
-        s.geobase.extract()
+
+
+@main.command()
+@click.option("--start", type=str, help="Start date (YYYY-MM-DD)")
+@click.option("--end", type=str, help="End date (YYYY-MM-DD)")
+def history(start, end):
+    """Historical ETL Processing"""
+    s.functions.header()
+    logging.info(f"Running Spillman-ETL history from {start} to {end}")
+
+    start_date = datetime.strptime(start, "%Y-%m-%d").date()
+    end_date = datetime.strptime(end, "%Y-%m-%d").date()
+    
+    for single_date in s.functions.daterange(start_date, end_date):
+        process_date = single_date.strftime("%Y-%m-%d")
+        logging.info(f"Running Spillman-ETL for {process_date}")
+
+        s.cad.extract(process_date)
+        s.fireincident.extract(process_date)
+        s.emsincident.extract(process_date)
+        s.lawincident.extract(process_date)
+        s.rlog.extract(process_date)
+        s.citation.extract(process_date)
+        s.msglog.extract(process_date)
+        s.avl.extract(process_date)
 
 
 @main.command()
@@ -63,6 +87,13 @@ def ddm():
     s.functions.header()
     logging.info(f"Executing Daily DataMart Stored Procedures")
     s.datamart.daily()
+
+
+@main.command()
+def geo():
+    """Update Geobase Table"""
+    s.functions.header()
+    s.geobase.extract()
 
 
 @main.command()
