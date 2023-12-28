@@ -53,7 +53,7 @@ def extract():
 
 
 def process(start_id, end_id):
-    logging.info(f"Processing GeoBase Address")
+    logging.info(f"Processing Geobase Address ID's from {start_id} to {end_id}")
 
     try:
         headers = {"Content-Type": "application/xml"}
