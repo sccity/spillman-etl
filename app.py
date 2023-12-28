@@ -54,13 +54,31 @@ def daily():
         s.citation.extract(process_date)
         s.msglog.extract(process_date)
         s.avl.extract(process_date)
-        
-        tables = ["apagncy", "apcity", "apnames", "syunit", "cdnatunt", 
-                  "cdoffst", "cdstatn", "cdunit", "hmcbase", "hmccas", 
-                  "hmcnam", "rumain", "rutypes", "tbakaknd", "tbhowrc", 
-                  "tbnataka", "tbnatur", "tbvehaka", "tbvehknd", "tbxnames", 
-                  "tbzones"]
-                  
+
+        tables = [
+            "apagncy",
+            "apcity",
+            "apnames",
+            "syunit",
+            "cdnatunt",
+            "cdoffst",
+            "cdstatn",
+            "cdunit",
+            "hmcbase",
+            "hmccas",
+            "hmcnam",
+            "rumain",
+            "rutypes",
+            "tbakaknd",
+            "tbhowrc",
+            "tbnataka",
+            "tbnatur",
+            "tbvehaka",
+            "tbvehknd",
+            "tbxnames",
+            "tbzones",
+        ]
+
         for table in tables:
             s.table.spillman(table)
 
@@ -75,7 +93,7 @@ def history(start, end):
 
     start_date = datetime.strptime(start, "%Y-%m-%d").date()
     end_date = datetime.strptime(end, "%Y-%m-%d").date()
-    
+
     for single_date in s.functions.daterange(start_date, end_date):
         process_date = single_date.strftime("%Y-%m-%d")
         logging.info(f"Running Spillman-ETL for {process_date}")
@@ -112,8 +130,8 @@ def createagency(agency, type):
     """Create Agency Views in Warehouse"""
     s.functions.header()
     s.agencyview.create(agency, type)
-    
-    
+
+
 @main.command()
 @click.option("--table", type=str, help="Specify the Spillman Table")
 def tableimport(table):

@@ -60,13 +60,16 @@ def spillman(table):
         table_xml = session.post(api_url, data=request, headers=headers, verify=False)
         table_decoded = table_xml.content.decode("utf-8")
         tabledata = json.loads(json.dumps(xmltodict.parse(table_decoded)))
-        tabledata = tabledata["PublicSafetyEnvelope"]["PublicSafety"]["Response"][f"{table}"]
+        tabledata = tabledata["PublicSafetyEnvelope"]["PublicSafety"]["Response"][
+            f"{table}"
+        ]
 
         create_table(table, tabledata)
 
     except Exception as e:
         logging.error(f"Error processing Spillman Table {table}: {e}")
-            
+
+
 def create_table(table_name, tabledata):
     keys = list(tabledata[0].keys())
 
@@ -78,7 +81,9 @@ def create_table(table_name, tabledata):
         cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
         db.commit()
 
-        cursor.execute(f"CREATE TABLE {table_name} ({', '.join([f'`{key}` VARCHAR(255)' for key in keys])})")
+        cursor.execute(
+            f"CREATE TABLE {table_name} ({', '.join([f'`{key}` VARCHAR(255)' for key in keys])})"
+        )
         db.commit()
 
         for row in tabledata:
