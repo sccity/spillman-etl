@@ -50,6 +50,7 @@ def daily():
         s.fireincident.extract(process_date)
         s.emsincident.extract(process_date)
         s.lawincident.extract(process_date)
+        s.lawincidentdetail.detailhistory()
         s.rlog.extract(process_date)
         s.citation.extract(process_date)
         s.msglog.extract(process_date)
@@ -77,6 +78,9 @@ def daily():
             "tbvehknd",
             "tbxnames",
             "tbzones",
+            "OffenseCodes",
+            "CircumstanceCodes",
+            "IncidentCircumstanceCodes",
         ]
 
         for table in tables:
@@ -138,6 +142,22 @@ def tableimport(table):
     """Copy Entire Spillman Tables"""
     s.functions.header()
     s.table.spillman(table)
+
+
+@main.command()
+@click.option("--agency", type=str, help="Specify the Agency Code")
+@click.option("--inc", type=str, help="Specify the Incident Number")
+def lawdetail(agency, inc):
+    """Law Incident Details"""
+    s.functions.header()
+    s.lawincidentdetail.processdetail(agency, inc)
+
+
+@main.command()
+def lawdetailall():
+    """All Law Incident Details"""
+    s.functions.header()
+    s.lawincidentdetail.detailhistoryall()
 
 
 if __name__ == "__main__":

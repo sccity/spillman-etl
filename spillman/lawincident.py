@@ -23,6 +23,7 @@ import xmltodict
 import traceback
 import datetime
 from .loadtable import *
+from .lawincidentdetail import *
 from .settings import settings_data
 from .database import db
 

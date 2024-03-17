@@ -21,6 +21,7 @@ import requests
 import time
 from .settings import settings_data
 from .database import connect, connect_read
+from .log import setup_logger
 
 requests.packages.urllib3.disable_warnings(
     requests.packages.urllib3.exceptions.InsecureRequestWarning
@@ -63,3 +64,13 @@ def daily():
     runProcedure("spillman_dm.CREATE_DM_INC_RLOG_6M")
     runProcedure("spillman_dm.CREATE_DM_INC_RLOG_3M")
     runProcedure("spillman_dm.CREATE_DM_INC_RLOG_1M")
+    runProcedure("spillman_dm.CREATE_DM_INC_OFFENSE_3Y")
+    runProcedure("spillman_dm.CREATE_DM_INC_OFFENSE_1Y")
+    runProcedure("spillman_dm.CREATE_DM_INC_OFFENSE_6M")
+    runProcedure("spillman_dm.CREATE_DM_INC_OFFENSE_3M")
+    runProcedure("spillman_dm.CREATE_DM_INC_OFFENSE_1M")
+    runProcedure("spillman_dm.CREATE_DM_INC_CIRCUMSTANCE_3Y")
+    runProcedure("spillman_dm.CREATE_DM_INC_CIRCUMSTANCE_1Y")
+    runProcedure("spillman_dm.CREATE_DM_INC_CIRCUMSTANCE_6M")
+    runProcedure("spillman_dm.CREATE_DM_INC_CIRCUMSTANCE_3M")
+    runProcedure("spillman_dm.CREATE_DM_INC_CIRCUMSTANCE_1M")

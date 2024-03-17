@@ -77,7 +77,6 @@ def create(agency, type):
     runQuery(
         f"create view {agency}.cad as SELECT i.agency, c.* FROM dispatch.cad_calls c left join dispatch.incident i on c.callid = i.callid where i.agency = '{agency}'"
     )
-    runQuery(f"create view {agency}.geobase as select * from dispatch.geobase")
     create_view(agency, "DM_INC_RLOG_3Y", "spillman_dm.DM_INC_RLOG_3Y")
     create_view(agency, "DM_INC_RLOG_1Y", "spillman_dm.DM_INC_RLOG_1Y")
     create_view(agency, "DM_INC_RLOG_6M", "spillman_dm.DM_INC_RLOG_6M")
@@ -97,3 +96,25 @@ def create(agency, type):
                 SELECT * FROM dispatch.citations where agency = '{agency}';
                 """
         )
+        runQuery(f"create view {agency}.geobase as select * from dispatch.geobase")
+        runQuery(
+            f"create view {agency}.OffenseCodes as select * from dispatch.OffenseCodes"
+        )
+        runQuery(
+            f"create view {agency}.CircumstanceCodes as select * from dispatch.CircumstanceCodes"
+        )
+        runQuery(
+            f"create view {agency}.IncidentCircumstanceCodes as select * from dispatch.IncidentCircumstanceCodes"
+        )
+        create_view(agency, "incident_offense", "dispatch.incident_offense")
+        create_view(agency, "incident_circumstance", "dispatch.incident_circumstance")
+        create_view(agency, "DM_INC_CIRCUMSTANCE_3Y", "spillman_dm.DM_INC_CIRCUMSTANCE_3Y")
+        create_view(agency, "DM_INC_CIRCUMSTANCE_1Y", "spillman_dm.DM_INC_CIRCUMSTANCE_1Y")
+        create_view(agency, "DM_INC_CIRCUMSTANCE_6M", "spillman_dm.DM_INC_CIRCUMSTANCE_6M")
+        create_view(agency, "DM_INC_CIRCUMSTANCE_3M", "spillman_dm.DM_INC_CIRCUMSTANCE_3M")
+        create_view(agency, "DM_INC_CIRCUMSTANCE_1M", "spillman_dm.DM_INC_CIRCUMSTANCE_1M")
+        create_view(agency, "DM_INC_OFFENSE_3Y", "spillman_dm.DM_INC_OFFENSE_3Y")
+        create_view(agency, "DM_INC_OFFENSE_1Y", "spillman_dm.DM_INC_OFFENSE_1Y")
+        create_view(agency, "DM_INC_OFFENSE_6M", "spillman_dm.DM_INC_OFFENSE_6M")
+        create_view(agency, "DM_INC_OFFENSE_3M", "spillman_dm.DM_INC_OFFENSE_3M")
+        create_view(agency, "DM_INC_OFFENSE_1M", "spillman_dm.DM_INC_OFFENSE_1M")

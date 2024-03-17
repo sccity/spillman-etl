@@ -532,3 +532,39 @@ def load_geobase(
         else:
             logging.error(f"Error inserting geobase: {error}")
             logging.error(traceback.format_exc())
+
+
+def load_offenses(incident_id, offense_cd, agency):
+    try:
+        sql = """
+        INSERT incident_offenses (incident_id, offense_cd, agency)
+        VALUES (%s, %s, %s);
+        """
+        values = (
+            incident_id,
+            offense_cd,
+            agency,
+        )
+        logging.debug(f"Inserting Offenses for unit: {incident_id}")
+        execute_sql(sql, values)
+
+    except Exception as e:
+        logging.error(traceback.print_exc())
+
+
+def load_circumstances(incident_id, circumstance_cd, agency):
+    try:
+        sql = """
+        INSERT incident_circumstances (incident_id, circumstance_cd, agency)
+        VALUES (%s, %s, %s);
+        """
+        values = (
+            incident_id,
+            circumstance_cd,
+            agency,
+        )
+        logging.debug(f"Inserting Circumstances for unit: {incident_id}")
+        execute_sql(sql, values)
+
+    except Exception as e:
+        logging.error(traceback.print_exc())

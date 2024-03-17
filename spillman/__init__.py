@@ -31,3 +31,4 @@ from .datamart import *
 from .functions import *
 from .agencyview import *
 from .table import *
+from .lawincidentdetail import *
