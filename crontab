@@ -1,2 +1,2 @@
-0 1 * * * sccity /bin/sh /app/daily.sh
-0 2 1 * * sccity /bin/sh /app/monthly.sh
+0 1 * * * root /bin/sh /app/daily.sh
+0 2 1 * * root /bin/sh /app/monthly.sh
