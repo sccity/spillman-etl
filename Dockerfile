@@ -1,5 +1,20 @@
 FROM python:3.11-slim-bookworm
+ENV USER=sccity
+ENV GROUPNAME=$USER
+ENV UID=1435
+ENV GID=1435
 WORKDIR /app
+RUN addgroup \
+    --gid "$GID" \
+    "$GROUPNAME" \
+&&  adduser \
+    --disabled-password \
+    --gecos "" \
+    --home "/app" \
+    --ingroup "$GROUPNAME" \
+    --no-create-home \
+    --uid "$UID" \
+    $USER
 RUN apt-get update \
   && apt-get install -y \
     cron \
@@ -8,6 +23,8 @@ RUN apt-get update \
 COPY ./requirements.txt /app
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
+RUN chown -R sccity:sccity /app && chmod -R 775 /app
+USER sccity
 COPY crontab /etc/cron.d/spillman_etl
 RUN /usr/bin/crontab /etc/cron.d/spillman_etl
 CMD tail -f /dev/null
