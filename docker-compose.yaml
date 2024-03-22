@@ -8,5 +8,7 @@ services:
     container_name: spillman-etl
     environment:
       - TZ=America/Denver
+    env_file:
+      - stack.env #For Portainer
     restart: unless-stopped
     user: "1435:1435" 
