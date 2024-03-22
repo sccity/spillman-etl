@@ -23,6 +23,7 @@ formatter = logging.Formatter(
     "%(levelname)s - %(asctime)s\nFunction: %(funcName)s\nMessage:\n%(message)s\n"
 )
 
+
 class URLGetHandler(logging.Handler):
     def __init__(self, url):
         super().__init__()
@@ -30,15 +31,16 @@ class URLGetHandler(logging.Handler):
 
     def emit(self, record):
         log_entry = {
-            'app': 'Spillman ETL ' + settings_data["global"]["env"],
-            'level': record.levelname,
-            'function': record.funcName,
-            'msg': record.getMessage()
+            "app": "Spillman ETL " + settings_data["global"]["env"],
+            "level": record.levelname,
+            "function": record.funcName,
+            "msg": record.getMessage(),
         }
         try:
             requests.get(self.url, params=log_entry)
         except Exception as e:
             print(f"Failed to send log message via GET to {self.url}: {e}")
+
 
 def setup_logger(name, log_file, level=loglevel):
     log_path = os.path.exists("./logs/")
@@ -64,7 +66,7 @@ def setup_logger(name, log_file, level=loglevel):
         secure=(),
     )
     mail_handler.setFormatter(formatter)
-    
+
     url = settings_data["global"]["jira-log-api"]
     url_get_handler = URLGetHandler(url)
     url_get_handler.setFormatter(formatter)
@@ -74,6 +76,6 @@ def setup_logger(name, log_file, level=loglevel):
     logger.propagate = False
     logger.addHandler(handler)
     logger.addHandler(url_get_handler)
-    #logger.addHandler(mail_handler)
+    # logger.addHandler(mail_handler)
 
     return logger

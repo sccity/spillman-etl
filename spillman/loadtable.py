@@ -25,9 +25,7 @@ requests.packages.urllib3.disable_warnings(
     requests.packages.urllib3.exceptions.InsecureRequestWarning
 )
 
-logging.basicConfig(
-    format="%(levelname)s - %(message)s", level=loglevel
-)
+logging.basicConfig(format="%(levelname)s - %(message)s", level=loglevel)
 
 
 def execute_sql(sql, values):

@@ -33,9 +33,7 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
-logging.basicConfig(
-    format="%(levelname)s - %(message)s", level=loglevel
-)
+logging.basicConfig(format="%(levelname)s - %(message)s", level=loglevel)
 
 api_url = spillman_url
 api_usr = spillman_user

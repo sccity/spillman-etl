@@ -26,9 +26,7 @@ requests.packages.urllib3.disable_warnings(
     requests.packages.urllib3.exceptions.InsecureRequestWarning
 )
 
-logging.basicConfig(
-    format="%(levelname)s - %(message)s", level=loglevel
-)
+logging.basicConfig(format="%(levelname)s - %(message)s", level=loglevel)
 
 
 def runQuery(sql):
@@ -108,11 +106,21 @@ def create(agency, type):
         )
         create_view(agency, "incident_offense", "dispatch.incident_offense")
         create_view(agency, "incident_circumstance", "dispatch.incident_circumstance")
-        create_view(agency, "DM_INC_CIRCUMSTANCE_3Y", "spillman_dm.DM_INC_CIRCUMSTANCE_3Y")
-        create_view(agency, "DM_INC_CIRCUMSTANCE_1Y", "spillman_dm.DM_INC_CIRCUMSTANCE_1Y")
-        create_view(agency, "DM_INC_CIRCUMSTANCE_6M", "spillman_dm.DM_INC_CIRCUMSTANCE_6M")
-        create_view(agency, "DM_INC_CIRCUMSTANCE_3M", "spillman_dm.DM_INC_CIRCUMSTANCE_3M")
-        create_view(agency, "DM_INC_CIRCUMSTANCE_1M", "spillman_dm.DM_INC_CIRCUMSTANCE_1M")
+        create_view(
+            agency, "DM_INC_CIRCUMSTANCE_3Y", "spillman_dm.DM_INC_CIRCUMSTANCE_3Y"
+        )
+        create_view(
+            agency, "DM_INC_CIRCUMSTANCE_1Y", "spillman_dm.DM_INC_CIRCUMSTANCE_1Y"
+        )
+        create_view(
+            agency, "DM_INC_CIRCUMSTANCE_6M", "spillman_dm.DM_INC_CIRCUMSTANCE_6M"
+        )
+        create_view(
+            agency, "DM_INC_CIRCUMSTANCE_3M", "spillman_dm.DM_INC_CIRCUMSTANCE_3M"
+        )
+        create_view(
+            agency, "DM_INC_CIRCUMSTANCE_1M", "spillman_dm.DM_INC_CIRCUMSTANCE_1M"
+        )
         create_view(agency, "DM_INC_OFFENSE_3Y", "spillman_dm.DM_INC_OFFENSE_3Y")
         create_view(agency, "DM_INC_OFFENSE_1Y", "spillman_dm.DM_INC_OFFENSE_1Y")
         create_view(agency, "DM_INC_OFFENSE_6M", "spillman_dm.DM_INC_OFFENSE_6M")

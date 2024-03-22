@@ -5,7 +5,7 @@
 # **********************************************************
 # Spillman-ETL
 # Copyright Santa Clara City
-# Licensed under the Apache License, Version 2.0 (the "License");
+# Licensed under the Apache License, Version 2.0 (the "License"];
 # you may not use this file except in compliance with the License.#
 # You may obtain a copy of the License at
 # http://www.apache.org/licenses/LICENSE-2.0
@@ -16,13 +16,13 @@
 # limitations under the License.
 import os, sys
 
-loglevel = os.getenv("LOGLEVEL")
-nwsid = os.getenv("NWSID")
-db_schema = os.getenv("DB_SCHEMA")
-db_user = os.getenv("DB_USER")
-db_password = os.getenv("DB_PASSWORD")
-db_host = os.getenv("DB_HOST")
-db_host_ro = os.getenv("DB_HOST_RO")
-spillman_url = os.getenv("SPILLMAN_URL")
-spillman_user = os.getenv("SPILLMAN_USER")
-spillman_password = os.getenv("SPILLMAN_PASSWORD")
+loglevel = os.environ["LOGLEVEL"]
+nwsid = os.environ["NWSID"]
+db_schema = os.environ["DB_SCHEMA"]
+db_user = os.environ["DB_USER"]
+db_password = os.environ["DB_PASSWORD"]
+db_host = os.environ["DB_HOST"]
+db_host_ro = os.environ["DB_HOST_RO"]
+spillman_url = os.environ["SPILLMAN_URL"]
+spillman_user = os.environ["SPILLMAN_USER"]
+spillman_password = os.environ["SPILLMAN_PASSWORD"]

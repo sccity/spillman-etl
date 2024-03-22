@@ -27,7 +27,6 @@ from datetime import datetime
 from spillman.database import db
 from spillman.settings import *
 
-
 logging.basicConfig(
     format="%(levelname)s - %(message)s",
     level=loglevel,
