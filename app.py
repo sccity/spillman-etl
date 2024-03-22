@@ -14,18 +14,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+import os, sys
+from dotenv import load_dotenv
+
+load_dotenv()
+
 import logging
-import os
 import click
 import spillman as s
 from datetime import date, timedelta
 from datetime import datetime
 from spillman.database import db
-from spillman.settings import settings_data
+from spillman.settings import *
+
 
 logging.basicConfig(
     format="%(levelname)s - %(message)s",
-    level=settings_data["global"]["loglevel"],
+    level=loglevel,
     filename="spillman-etl.log",
 )
 

@@ -19,7 +19,7 @@ import traceback
 import logging
 import requests
 import time
-from .settings import settings_data
+from .settings import *
 from .database import connect, connect_read
 from .log import setup_logger
 
@@ -28,7 +28,7 @@ requests.packages.urllib3.disable_warnings(
 )
 
 logging.basicConfig(
-    format="%(levelname)s - %(message)s", level=settings_data["global"]["loglevel"]
+    format="%(levelname)s - %(message)s", level=loglevel
 )
 
 

@@ -14,14 +14,15 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-import os
-import sys
-import yaml
+import os, sys
 
-settings_file = "./spillman/settings.yaml"
-if not os.path.exists(settings_file):
-    print("settings.yaml not found!")
-    sys.exit()
-
-with open(settings_file, "r") as f:
-    settings_data = yaml.load(f, Loader=yaml.FullLoader)
+loglevel = os.getenv("LOGLEVEL")
+nwsid = os.getenv("NWSID")
+db_schema = os.getenv("DB_SCHEMA")
+db_user = os.getenv("DB_USER")
+db_password = os.getenv("DB_PASSWORD")
+db_host = os.getenv("DB_HOST")
+db_host_ro = os.getenv("DB_HOST_RO")
+spillman_url = os.getenv("SPILLMAN_URL")
+spillman_user = os.getenv("SPILLMAN_USER")
+spillman_password = os.getenv("SPILLMAN_PASSWORD")

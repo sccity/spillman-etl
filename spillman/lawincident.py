@@ -24,7 +24,7 @@ import traceback
 import datetime
 from .loadtable import *
 from .lawincidentdetail import *
-from .settings import settings_data
+from .settings import *
 from .database import db
 
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
@@ -32,12 +32,12 @@ from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 logging.basicConfig(
-    format="%(levelname)s - %(message)s", level=settings_data["global"]["loglevel"]
+    format="%(levelname)s - %(message)s", level=loglevel
 )
 
-api_url = settings_data["spillman"]["url"]
-api_usr = settings_data["spillman"]["user"]
-api_pwd = settings_data["spillman"]["password"]
+api_url = spillman_url
+api_usr = spillman_user
+api_pwd = spillman_password
 
 session = requests.Session()
 session.auth = (api_usr, api_pwd)

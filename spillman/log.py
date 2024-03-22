@@ -16,7 +16,7 @@
 # limitations under the License.
 import os, logging, requests
 from logging.handlers import SMTPHandler
-from spillman.settings import settings_data
+from .settings import *
 
 
 formatter = logging.Formatter(
@@ -40,7 +40,7 @@ class URLGetHandler(logging.Handler):
         except Exception as e:
             print(f"Failed to send log message via GET to {self.url}: {e}")
 
-def setup_logger(name, log_file, level=settings_data["global"]["loglevel"]):
+def setup_logger(name, log_file, level=loglevel):
     log_path = os.path.exists("./logs/")
     if not log_path:
         os.makedirs("./logs")
@@ -70,7 +70,7 @@ def setup_logger(name, log_file, level=settings_data["global"]["loglevel"]):
     url_get_handler.setFormatter(formatter)
 
     logger = logging.getLogger(name)
-    logger.setLevel(settings_data["global"]["loglevel"])
+    logger.setLevel(loglevel)
     logger.propagate = False
     logger.addHandler(handler)
     logger.addHandler(url_get_handler)

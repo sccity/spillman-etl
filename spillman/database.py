@@ -16,24 +16,24 @@
 # limitations under the License.
 import pymysql
 from sqlalchemy import create_engine
-from .settings import settings_data
+from .settings import *
 
 
 def connect():
     return pymysql.connect(
-        host=settings_data["databases"]["warehouse"]["host"],
-        user=settings_data["databases"]["warehouse"]["user"],
-        password=settings_data["databases"]["warehouse"]["password"],
-        database=settings_data["databases"]["warehouse"]["schema"],
+        host=db_host,
+        user=db_user,
+        password=db_password,
+        database=db_schema,
     )
 
 
 def connect_read():
     return pymysql.connect(
-        host=settings_data["databases"]["warehouse"]["host_ro"],
-        user=settings_data["databases"]["warehouse"]["user"],
-        password=settings_data["databases"]["warehouse"]["password"],
-        database=settings_data["databases"]["warehouse"]["schema"],
+        host=db_host_ro,
+        user=db_user,
+        password=db_password,
+        database=db_schema,
     )
 
 

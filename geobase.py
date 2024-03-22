@@ -18,17 +18,16 @@
 import sys
 import logging
 import os
-import psutil
 import spillman as s
 from multiprocessing import Process
 from datetime import date, timedelta
 from datetime import datetime
 from spillman.database import db
-from spillman.settings import settings_data
+import spillman.settings
 
 logging.basicConfig(
     format="%(levelname)s - %(message)s",
-    level=settings_data["global"]["loglevel"],
+    level=loglevel,
     filename="spillman-etl-history.log",
 )
 
