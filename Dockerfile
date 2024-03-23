@@ -19,6 +19,7 @@ RUN apt-get update \
   && apt-get install -y \
     cron \
     procps \
+    git \
     nano
 COPY ./requirements.txt /app
 RUN pip install --no-cache-dir -r requirements.txt
@@ -27,4 +28,4 @@ RUN chown -R sccity:sccity /app && chmod -R 775 /app
 USER sccity
 COPY crontab /etc/cron.d/spillman_etl
 RUN /usr/bin/crontab /etc/cron.d/spillman_etl
-CMD tail -f /dev/null
+CMD ["cron", "-f"]
