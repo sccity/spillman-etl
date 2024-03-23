@@ -1,5 +1,5 @@
 FROM python:3.11-slim-bookworm
-ENV USER=sccity
+ENV USER=root
 ENV GROUPNAME=$USER
 ENV UID=1435
 ENV GID=1435
