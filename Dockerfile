@@ -1,9 +1,10 @@
 FROM python:3.11-slim-bookworm
-ENV USER=root
+ENV USER=sccity
 ENV GROUPNAME=$USER
 ENV UID=1435
 ENV GID=1435
 WORKDIR /app
+USER root
 RUN addgroup \
     --gid "$GID" \
     "$GROUPNAME" \
@@ -21,11 +22,9 @@ RUN apt-get update \
     procps \
     git \
     nano
-COPY ./requirements.txt /app
-RUN pip install --no-cache-dir -r requirements.txt
 COPY . /app
 RUN chown -R sccity:sccity /app && chmod -R 775 /app
-USER sccity
+RUN pip install --no-cache-dir -r requirements.txt
 COPY crontab /etc/cron.d/spillman_etl
 RUN /usr/bin/crontab /etc/cron.d/spillman_etl
 CMD ["cron", "-f"]
