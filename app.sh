@@ -1,6 +1,6 @@
 #!/bin/bash
 
-docker_compose="docker-compose -f docker-compose.yaml"
+docker_compose="docker-compose -f docker-compose.yml"
 
 if [[ $1 = "start" ]]; then
   echo "Starting Spillman ETL..."
