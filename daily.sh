@@ -1,4 +1,4 @@
 #!/bin/bash
 cd /app
-python app.py daily
-python app.py ddm
+/usr/local/bin/python app.py daily
+/usr/local/bin/python app.py ddm

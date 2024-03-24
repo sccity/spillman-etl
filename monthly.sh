@@ -1,3 +1,3 @@
 #!/bin/bash
 cd /app
-python app.py geobase
+/usr/local/bin/python app.py geobase
