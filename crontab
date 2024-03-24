@@ -1,2 +1,3 @@
-0 1 * * * sccity /bin/sh /app/daily.sh > /proc/1/fd/1 2>/proc/1/fd/2
-0 2 1 * * sccity /bin/sh /app/monthly.sh > /proc/1/fd/1 2>/proc/1/fd/2
+@reboot echo "Spillman ETL" > /proc/1/fd/1 2>/proc/1/fd/2
+0 1 * * * /bin/sh /app/daily.sh > /proc/1/fd/1 2>/proc/1/fd/2
+0 3 1 * * /bin/sh /app/monthly.sh > /proc/1/fd/1 2>/proc/1/fd/2

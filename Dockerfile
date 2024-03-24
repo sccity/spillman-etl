@@ -19,12 +19,16 @@ RUN addgroup \
 RUN apt-get update \
   && apt-get install -y \
     cron \
+    systemd \
     procps \
     git \
     nano
+RUN mkdir -p /var/run && chmod 777 /var/run
 COPY . /app
 RUN chown -R sccity:sccity /app && chmod -R 775 /app
 RUN pip install --no-cache-dir -r requirements.txt
 COPY crontab /etc/cron.d/spillman_etl
+RUN chmod 0644 /etc/cron.d/spillman_etl
 RUN /usr/bin/crontab /etc/cron.d/spillman_etl
-CMD ["cron", "-f"]
+RUN touch /var/log/cron.log
+CMD cron && tail -f /var/log/cron.log

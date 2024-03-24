@@ -8,5 +8,5 @@ services:
     container_name: spillman-etl
     environment:
       - TZ=America/Denver
+    privileged: true
     restart: unless-stopped
-    user: "1435:1435" 
