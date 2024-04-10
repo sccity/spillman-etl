@@ -165,7 +165,7 @@ def detailhistory():
     try:
         db = connect()
         cursor = db.cursor()
-        sql = "SELECT agency, incident_id FROM dispatch.incident WHERE type = 'Law' AND dispatch_dt >= CURDATE() - INTERVAL 7 DAY;"
+        sql = "SELECT agency, incident_id FROM spillman.incident WHERE type = 'Law' AND dispatch_dt >= CURDATE() - INTERVAL 7 DAY;"
         cursor.execute(sql)
         results = cursor.fetchall()
         for row in results:
@@ -186,7 +186,7 @@ def detailhistoryall():
     try:
         db = connect()
         cursor = db.cursor()
-        sql = "SELECT agency, incident_id FROM dispatch.incident WHERE type = 'Law';"
+        sql = "SELECT agency, incident_id FROM spillman.incident WHERE type = 'Law';"
         cursor.execute(sql)
         results = cursor.fetchall()
         for row in results:
