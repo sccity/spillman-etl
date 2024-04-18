@@ -114,15 +114,23 @@ def history(start, end):
         s.citation.extract(process_date)
         s.msglog.extract(process_date)
         s.avl.extract(process_date)
-
-
+        
 @main.command()
-def ddm():
-    """Daily DataMart Process"""
+@click.option("--start", type=str, help="Start date (YYYY-MM-DD)")
+@click.option("--end", type=str, help="End date (YYYY-MM-DD)")
+def sylog(start, end):
+    """Sylog ETL Processing"""
     s.functions.header()
-    logging.info(f"Executing Daily DataMart Stored Procedures")
-    s.datamart.daily()
+    logging.info(f"Running Spillman-ETL sylog from {start} to {end}")
 
+    start_date = datetime.strptime(start, "%Y-%m-%d").date()
+    end_date = datetime.strptime(end, "%Y-%m-%d").date()
+
+    for single_date in s.functions.daterange(start_date, end_date):
+        process_date = single_date.strftime("%Y-%m-%d")
+        logging.info(f"Running Spillman-ETL for {process_date}")
+
+        s.sylog.extract(process_date)
 
 @main.command()
 def geobase():
