@@ -115,11 +115,13 @@ def load_incident(
 def load_sylog(userid, mode, table, data, logdate):
     try:
         sql = """
-        INSERT INTO sylog (user_id, table, mode, date, data)
+        INSERT INTO sylog (user_id, `table`, mode, `date`, data)
         VALUES (%s, %s, %s, %s, %s);
         """
         values = (userid, table, mode, logdate, data)
-        logging.debug(f"Processing system log for user: {user_id} and date: {date}")
+        values = tuple(value.replace('\n', ' ') if isinstance(value, str) else value for value in values)
+        
+        logging.debug(f"Processing system log for user: {userid} and date: {logdate}")
         execute_sql(sql, values)
 
     except Exception as e:

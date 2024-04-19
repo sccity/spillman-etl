@@ -52,11 +52,7 @@ def extract(date):
     process(f"{end_date} 11:59:59", f"{end_date} 18:00:00")
     process(f"{end_date} 18:59:59", f"{end_date} 23:59:59")
 
-def process(date):
-    date_time = datetime.datetime.strptime(date, "%Y-%m-%d")
-    start_date = date_time - datetime.timedelta(seconds=1)
-    end_date = date_time + datetime.timedelta(days=1)
-
+def process(start_date, end_date):
     logging.info(f"Processing system logs from {start_date} to {end_date}")
 
     try:
