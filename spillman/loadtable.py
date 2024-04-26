@@ -76,7 +76,7 @@ def load_incident(
 ):
     try:
         sql = """
-        INSERT INTO incident(
+        INSERT IGNORE INTO incident(
             callid, incident_id, nature, address, city, state, zip, location, agency,
             responsible_officer, geo_addr, name_id, received_by, occurred_dt1, occurred_dt2,
             reported_dt, dispatch_dt, contact, `condition`, disposition, type
@@ -115,7 +115,7 @@ def load_incident(
 def load_sylog(userid, mode, table, data, logdate):
     try:
         sql = """
-        INSERT INTO sylog (user_id, `table`, mode, `date`, data)
+        INSERT IGNORE INTO sylog (user_id, `table`, mode, `date`, data)
         VALUES (%s, %s, %s, %s, %s);
         """
         values = (userid, table, mode, logdate, data)
@@ -131,7 +131,7 @@ def load_sylog(userid, mode, table, data, logdate):
 def load_avl(callid, agency, unit, unit_status, gps_x, gps_y, heading, speed, logdate):
     try:
         sql = """
-        INSERT INTO avl (callid, agency, unit, unit_status, gps_x, gps_y, heading, speed, logdate)
+        INSERT IGNORE INTO avl (callid, agency, unit, unit_status, gps_x, gps_y, heading, speed, logdate)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s);
         """
         values = (
@@ -155,7 +155,7 @@ def load_avl(callid, agency, unit, unit_status, gps_x, gps_y, heading, speed, lo
 def load_msglog(msgid, from_user, to_user, subject, message, msgdate):
     try:
         sql = """
-        INSERT INTO msglog (msgid, from_user, to_user, subject, message, msgdate)
+        INSERT IGNORE INTO msglog (msgid, from_user, to_user, subject, message, msgdate)
         VALUES (%s, %s, %s, %s, %s, %s);
         """
         values = (msgid, from_user, to_user, subject, message, msgdate)
@@ -185,7 +185,7 @@ def load_cad(
 ):
     try:
         sql = """
-        INSERT INTO cad(
+        INSERT IGNORE INTO cad(
             callid, call_type, nature, priority, reported, occur_dt_1, occur_dt_2, address,
             city_cd, complainant_id, received_type, call_taker, emd
         ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
@@ -229,7 +229,7 @@ def load_rlog(
 ):
     try:
         sql = """
-        INSERT INTO radiolog(
+        INSERT IGNORE INTO radiolog(
             rlog_key, callid, dispatcher, logdate, gps_x, gps_y, unit, zone, agency,
             tencode, description, sequence, calltype
         ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
@@ -281,7 +281,7 @@ def load_citation(
 ):
     try:
         sql = """
-        INSERT INTO citation(
+        INSERT IGNORE INTO citation(
             citation_id, name_id, citation_dt, court_dt, agency, violation_dt, bond_amt,
             actual_amt, posted_amt, safe_amt, issuing_officer, court_cd, zone, address, city,
             state, zip, vehicle_id, citation_type_cd, geo_addr, incident_id
@@ -331,7 +331,7 @@ def load_geobase(
 ):
     try:
         sql = """
-        INSERT INTO geobase (geobase_id, house_number, street_address, city_cd, zipcode, zone_law, zone_fire, zone_ems, latitude, longitude)
+        INSERT IGNORE INTO geobase (geobase_id, house_number, street_address, city_cd, zipcode, zone_law, zone_fire, zone_ems, latitude, longitude)
         VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s);
         """
         values = (
