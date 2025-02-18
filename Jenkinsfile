@@ -33,6 +33,7 @@ pipeline {
                     . venv/bin/activate
                     pip3.10 install -r requirements.txt
                     cp .env.example .env
+                    sed -i 's/^LOGLEVEL=.*/LOGLEVEL=DEBUG/' .env
                     sed -i 's/^DB_HOST=.*/DB_HOST=localhost/' .env
                     sed -i 's/^DB_HOST_RO=.*/DB_HOST_RO=localhost/' .env
                     sed -i 's/^DB_SCHEMA=.*/DB_SCHEMA=spillman/' .env
