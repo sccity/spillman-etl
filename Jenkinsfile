@@ -16,6 +16,14 @@ spec:
   volumes:
     - name: workspace-volume
       emptyDir: {}
+
+  nodeSelector:
+    Name: jenkins-nodes-k8s-prd-aws-us-west2
+  tolerations:
+    - key: type
+      operator: Equal
+      value: jenkins
+      effect: NoSchedule
             '''
         }
     }
